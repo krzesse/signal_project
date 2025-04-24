@@ -21,7 +21,7 @@ public class AlertGenerator {
      *                    data
      */
     public AlertGenerator(DataStorage dataStorage) {
-        this.dataStorage = dataStorage;
+        this.dataStorage = dataStorage;  // implementing line break before/after opening/closing brace
     }
 
     /**
