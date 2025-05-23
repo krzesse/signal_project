@@ -71,14 +71,20 @@ public class BloodPressureAlertRuleTest {
         Alert as1 = null;
         Alert as2 = null;
         Alert as3 = new Alert("1", "Trend Alert: SystolicPressure is decreasing", t1+6);
-        Alert as4 = new Alert("1", "Critical Threshold Alert: SystolicPressure is above threshold at 203", t1+10);
+        Alert as4 = new Alert("1", "Critical Threshold Alert: SystolicPressure is above threshold at 203.0", t1+10);
         Alert as5 = new Alert("1", "Critical Threshold Alert: DiastolicPressure is below threshold at 59.0", t1+11);
 
         assertEquals(as1, bp1.evaluate());
         assertEquals(as2, bp2.evaluate());
         assertEquals(as3.getCondition(), bp3.evaluate().getCondition());
+        assertEquals(as3.getPatientId(), bp3.evaluate().getPatientId());
+        assertEquals(as3.getTimestamp(), bp3.evaluate().getTimestamp());
         assertEquals(as4.getTimestamp(), bp4.evaluate().getTimestamp());
+        assertEquals(as4.getCondition(), bp4.evaluate().getCondition());
+        assertEquals(as4.getPatientId(), bp4.evaluate().getPatientId());
         assertEquals(as5.getCondition(), bp5.evaluate().getCondition());
+        assertEquals(as5.getTimestamp(), bp5.evaluate().getTimestamp());
+        assertEquals(as5.getPatientId(), bp5.evaluate().getPatientId());
 
     }
 }

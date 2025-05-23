@@ -39,7 +39,7 @@ public class TriggeredAlarmRule implements AlertRule{
         if (alertCount > 0 && triggeredAlarmRecords.get(alertCount - 1).getMeasurementValue() == 1) {
             PatientRecord latest = triggeredAlarmRecords.get(alertCount - 1);
             this.timestamp = latest.getTimestamp();
-            this.condition = "Latest Manual Alarm: Triggered at " + latest.getTimestamp();
+            this.condition = "Latest Manual Alert: Triggered at " + latest.getTimestamp();
             return new Alert(patientId, condition, timestamp);
         }
         return null;

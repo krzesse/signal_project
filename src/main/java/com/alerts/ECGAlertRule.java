@@ -65,9 +65,9 @@ public class ECGAlertRule implements AlertRule{
             currentAverage = currentAverage / windowLength;
 
             if (currentAverage > 1.5 * previousAverage){
-                this.timestamp = bloodECGRecords.get(i + windowLength).getTimestamp();
-                this.condition = "ECG Spike Alert: There is a spike between time interval " + bloodECGRecords.get(i).getTimestamp()
-                    + "-" + bloodECGRecords.get(i + windowLength - 1).getTimestamp();
+                this.timestamp = bloodECGRecords.get(i + windowLength -1).getTimestamp();
+                this.condition = "ECG Spike Alert: There is a spike from " + bloodECGRecords.get(i).getMeasurementValue()
+                    + " to " + bloodECGRecords.get(i + windowLength - 1).getMeasurementValue();
                 return true;
             }
 

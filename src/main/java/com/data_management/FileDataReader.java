@@ -41,6 +41,12 @@ public class FileDataReader implements DataReader{
                 if(measurement.endsWith("%")){
                     measurement = measurement.substring(0,measurement.length()-1);
                 }
+                else if(measurement.equals("triggered")){
+                    measurement = "1";
+                }
+                else if(measurement.equals("resolved")){
+                    measurement= "0";
+                }
                 double measurementValue = Double.parseDouble(measurement);
 
                 storage.addPatientData(patientID, measurementValue, recordType, timestamp);

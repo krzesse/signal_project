@@ -1,13 +1,15 @@
 package alerts;
 
 import com.alerts.Alert;
-import com.alerts.BloodSaturationAlertRule;
 import com.alerts.ECGAlertRule;
 import com.data_management.PatientRecord;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Provides tests for {@link ECGAlertRule}.
@@ -62,22 +64,22 @@ public class ECGAlertRuleTest {
         sr2.add(r15);
         ECGAlertRule ea2 = new ECGAlertRule(sr2);
 //38.4
-        long t2 = t+12222225;
-        long t1 = t+1111111;
+        long t2 = t+ Duration.ofMinutes(10).toMillis();
+        long t1 = t+Duration.ofMinutes(6).toMillis();
         PatientRecord r16 = new PatientRecord(1, 92, "ECG", t);
-        PatientRecord r17 = new PatientRecord(1, 91, "ECG", t+1);
-        PatientRecord r18 = new PatientRecord(1, 80, "ECG", t+11);
-        PatientRecord r19 = new PatientRecord(1, 79, "ECG", t+111);
-        PatientRecord r20 = new PatientRecord(1, 90, "ECG", t+1111);
-        PatientRecord r21= new PatientRecord(1, 92, "ECG", t+11111);
+        PatientRecord r17 = new PatientRecord(1, 91, "ECG", t+Duration.ofMinutes(1).toMillis());
+        PatientRecord r18 = new PatientRecord(1, 80, "ECG", t+Duration.ofMinutes(2).toMillis());
+        PatientRecord r19 = new PatientRecord(1, 79, "ECG", t+Duration.ofMinutes(3).toMillis());
+        PatientRecord r20 = new PatientRecord(1, 90, "ECG", t+Duration.ofMinutes(4).toMillis());
+        PatientRecord r21= new PatientRecord(1, 92, "ECG", t+Duration.ofMinutes(5).toMillis());
         PatientRecord r22 = new PatientRecord(1, 10, "ECG", t1);
-        PatientRecord r23 = new PatientRecord(1, 40, "ECG", t+12222222);
-        PatientRecord r24 = new PatientRecord(1, 30, "ECG", t+12222223);
-        PatientRecord r25 = new PatientRecord(1, 20, "ECG", t+12222224);
+        PatientRecord r23 = new PatientRecord(1, 40, "ECG", t+Duration.ofMinutes(7).toMillis());
+        PatientRecord r24 = new PatientRecord(1, 30, "ECG", t+Duration.ofMinutes(8).toMillis());
+        PatientRecord r25 = new PatientRecord(1, 20, "ECG", t+Duration.ofMinutes(9).toMillis());
         PatientRecord r26 = new PatientRecord(1, 200, "ECG", t2);
-        PatientRecord r27 = new PatientRecord(1, 150, "ECG", t+12222226);
-        PatientRecord r28 = new PatientRecord(1, 300, "ECG", t+12222227);
-        PatientRecord r29 = new PatientRecord(1, 92, "ECG", t+12222229);
+        PatientRecord r27 = new PatientRecord(1, 150, "ECG", t+Duration.ofMinutes(11).toMillis());
+        PatientRecord r28 = new PatientRecord(1, 300, "ECG", t+Duration.ofMinutes(12).toMillis());
+        PatientRecord r29 = new PatientRecord(1, 92, "ECG", t+Duration.ofMinutes(13).toMillis());
         sr3.add(r16);
         sr3.add(r17);
         sr3.add(r18);
@@ -94,9 +96,14 @@ public class ECGAlertRuleTest {
         sr3.add(r29);
         ECGAlertRule ea3 =  new ECGAlertRule(sr3);
 
-        Alert a1 = null;
-        Alert a2 = null;
-        Alert a3 = new Alert("1","ECG Spike Alert: There is a spike between time interval " + t1 + "-" + t2, t2);
+
+        Alert a3 = new Alert("1","ECG Spike Alert: There is a spike from " + 10.0 + " to " + 200.0, t2);
+
+        assertNull(ea1.evaluate());
+        assertNull(ea2.evaluate());
+        assertEquals(a3.getTimestamp(), ea3.evaluate().getTimestamp());
+        assertEquals(a3.getCondition(), ea3.evaluate().getCondition());
+        assertEquals(a3.getPatientId(), ea3.evaluate().getPatientId());
 
 
 

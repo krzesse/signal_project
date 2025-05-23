@@ -70,8 +70,8 @@ public class TriggeredAlarmRuleTest {
         sr4.add(r14);
         AlertRule ma4 = new TriggeredAlarmRule(sr4);
 
-        Alert a1 = new Alert("1","Latest Manual Alarm: Triggered at "+ t , t);
-        Alert a4 = new Alert("1","Latest Manual Alarm: Triggered at "+ t2 , t2);
+        Alert a1 = new Alert("1","Latest Manual Alert: Triggered at "+ t , t);
+        Alert a4 = new Alert("1","Latest Manual Alert: Triggered at "+ t2 , t2);
 
         assertEquals(a1.getCondition(), ma1.evaluate().getCondition());
         assertEquals(a1.getTimestamp(), ma1.evaluate().getTimestamp());

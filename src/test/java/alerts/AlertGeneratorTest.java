@@ -38,7 +38,7 @@ public class AlertGeneratorTest {
         Patient p = new Patient(1);
 
         double[] measurements = {171.87, 73.42, -1, 92.01, 0.001, 21.89, 54.72, 0};
-        String[] recordTypes = {"SystolicPressure", "DiastolicPressure", "Don't belong anywhere", "Saturation", "ECG", "Saturation", "SystolicPressure", "Manual Alarm"};
+        String[] recordTypes = {"SystolicPressure", "DiastolicPressure", "Saturation", "ECG", "Saturation", "SystolicPressure", "Manual Alarm"};
         long[] t = new long[measurements.length];
         for (int j = 0; j< t.length; j++){
             t[j] = System.currentTimeMillis();
@@ -51,9 +51,9 @@ public class AlertGeneratorTest {
         AlertGenerator generator = new AlertGenerator(storage);
         generator.evaluateData(p);
 
-        String expectedOutput = "Critical Threshold Alert: SystolicPressure is below threshold at 54.72" + System.lineSeparator()
-                + "Low Saturation Alert: Saturation level to low at 21.89" + System.lineSeparator()
-                + "Hypoxemia Alert: Saturation value 21.89 at " + t[6] + " and SystolicPressure value 54.72 at " + t[7] + System.lineSeparator();
+        String expectedOutput = "Critical Threshold Alert: SystolicPressure is below threshold at 21.89" + System.lineSeparator()
+                + "Low Saturation Alert: Saturation level to low at -1.0" + System.lineSeparator()
+                + "Hypoxemia Alert: Saturation value -1.0 at " + t[6] + " and SystolicPressure value 21.89 at " + t[7] + System.lineSeparator();
 
         assertEquals(expectedOutput, outputStream.toString());
 
