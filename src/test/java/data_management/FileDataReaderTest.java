@@ -1,10 +1,7 @@
 package data_management;
 
-import com.data_management.FileDataReader;
-import com.data_management.DataReader;
+import com.data_management.*;
 import com.cardio_generator.outputs.FileOutputStrategy;
-import com.data_management.DataStorage;
-import com.data_management.PatientRecord;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,12 +44,12 @@ public class FileDataReaderTest {
 
 
         DataReader reader = new FileDataReader(filePath1);
-        DataStorage storage = new DataStorage();
+        DataStorage storage = DataStorageSingleton.getInstance();
 
         try {
-            reader.readData(storage);
+            reader.readData();
             ((FileDataReader) reader).setFilePath(filePath2);
-            reader.readData(storage);
+            reader.readData();
         }catch(IOException e){
             System.err.println(e.getMessage());
         }

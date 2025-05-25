@@ -5,6 +5,8 @@ import org.java_websocket.server.WebSocketServer;
 
 import java.net.InetSocketAddress;
 
+import com.data_management.PatientRecord;
+
 public class WebSocketOutputStrategy implements OutputStrategy {
 
     private WebSocketServer server;
@@ -15,9 +17,37 @@ public class WebSocketOutputStrategy implements OutputStrategy {
         server.start();
     }
 
+    /**
+     * Week 5 changes: {@code output} method checks if given variables can be converted to meaningful data,
+     * that can be parsed into {@link PatientRecord} object.
+     *
+     * @param patientId identification of a patient
+     * @param timestamp specifies when the action was taken
+     * @param label description of stored information
+     * @param data describes type of data stored
+     */
     @Override
     public void output(int patientId, long timestamp, String label, String data) {
         String message = String.format("%d,%d,%s,%s", patientId, timestamp, label, data);
+
+        //checks if strings are non-empty.
+        if (label == null || data == null){
+            throw new IllegalArgumentException("Illegal null values");
+        }
+
+        //checks if data can be converted into double.
+        try{
+            if (data.endsWith("%"))
+                data = data.substring(0, data.length() - 1);
+            else if (data.equals("triggered"))
+                data = "1";
+            else if (data.equals("resolved"))
+                data = "0";
+            Double.parseDouble(data);
+        }catch (NumberFormatException e){
+            throw new IllegalArgumentException("Data should be convertible to double");
+        }
+
         // Broadcast the message to all connected clients
         for (WebSocket conn : server.getConnections()) {
             conn.send(message);

@@ -28,6 +28,7 @@ public class DataStorage {
      * If the patient does not exist, a new Patient object is created and added to
      * the storage.
      * Otherwise, the new data is added to the existing patient's records.
+     * Week 5: my implementation of websocket-client connection enables parsing data with this method without any changes being made.
      *
      * @param patientId        the unique identifier of the patient
      * @param measurementValue the value of the health metric being recorded
